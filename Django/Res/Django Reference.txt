@@ -1,0 +1,66 @@
+// Configuracion del entorno
+* Instalar Python
+* Agregar la ruta en las variables de entorno
+* Instalar Pip gestor de recursos
+* Instalar virtual enviroment
+* Dentro del Virtual enviroment se crea django
+
+Crear un Virtual Enviroment
+> virtualenv nombre
+
+Activar Virtual env desde ruta
+> .\Scripts\activate
+
+Descargar Django desde virtual env
+> pip install django
+
+Crear proyecto
+> python .\Scripts\django-admin.py startproject nombre
+
+Ejecutar el servidor
+> python manage.py runserver
+
+Migraciones es la sincronizacion entre la base de datos y el proyecto
+> python manage.py migrate
+
+Crear un usuario para /admin
+> python manage.py createsuperuser
+
+Aplicacion web
+Creacion de aplicacion
+> python manage.py startapp nombre
+
+Si un directorio tiene init es un modulo
+
+Registrar la aplicacion en el settings en la seccion INSTALLED_APPS
+
+Modelos son las tablas en la base de datos
+	
+Cada que se modifique un modelo se deben hacer migrations porque cambia el esquema
+
+Ejemplo de un modelo models.py:
+class Registrado(models.Model):	
+	nombre = models.CharField(max_length=100, blank=True, null=True)
+	email = models.EmailField()
+	timestamp = models.DateTimeField(auto_now_add=True,auto_now=False)
+
+	def __unicode__(self): #python2
+		return self.email
+	def __str__(self): #python3
+		return self.email
+
+
+Ejemplo de importaciónde ese modelo a backend en admin.py:
+
+from .models import Registrado
+admin.site.register(Registrado)
+
+
+Configurar el display de la tabla
+> class AdminRegistrado(admin.ModelAdmin):
+	list_display = ["email","nombre","timestamp"]
+	class Meta:
+		model = Registrado
+
+
+> admin.site.register(Registrado, AdminRegistrado)

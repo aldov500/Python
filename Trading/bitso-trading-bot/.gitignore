@@ -1,0 +1,10 @@
+*.pyc
+dist
+build
+eggs
+*~
+.coverage
+MANIFEST
+coverage.xml
+nosetests.xml
+#*#
